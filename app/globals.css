@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens de Pécule. Toute couleur ou police utilisée dans un composant
+ * doit venir d'ici (classes Tailwind générées : bg-surface, text-ink, etc.).
+ * Thème clair par défaut, sombre selon le réglage de l'appareil.
+ */
+:root {
+  /* Fonds */
+  --background: #f6f5f1;
+  --surface: #ffffff;
+  --border: #e2e0d8;
+
+  /* Texte */
+  --ink: #15211c;
+  --ink-muted: #5a6a62;
+
+  /* Marque : vert sapin */
+  --primary: #1f4d3a;
+  --primary-strong: #163a2c;
+  --on-primary: #ffffff;
+
+  /* Accent : orange chaud (actions principales). Texte foncé dessus pour le contraste. */
+  --accent: #ee8434;
+  --on-accent: #1f1206;
+
+  /* Montants */
+  --positive: #2b7a4b;
+  --negative: #b93c27;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f1714;
+    --surface: #17221d;
+    --border: #27342e;
+
+    --ink: #eaeee9;
+    --ink-muted: #9aaba2;
+
+    --primary: #6aae8e;
+    --primary-strong: #8cc4a9;
+    --on-primary: #0f1714;
+
+    --accent: #f2924a;
+    --on-accent: #1f1206;
+
+    --positive: #6cc493;
+    --negative: #f08672;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-on-primary: var(--on-primary);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+
+  /* Inter pour le texte, Manrope pour les titres et les montants */
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-manrope);
+}
+
+body {
+  background: var(--background);
+  color: var(--ink);
+}
