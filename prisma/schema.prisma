@@ -7,8 +7,8 @@ datasource db {
   provider = "postgresql"
 }
 
-// Champs de base attendus par Better Auth. Session, Account et Verification
-// seront ajoutés avec l'authentification.
+// --- Authentification (schéma attendu par Better Auth) ---
+
 model User {
   id            String   @id
   name          String
@@ -18,10 +18,73 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  sessions       Session[]
+  accounts       Account[]
   paidOperations Operation[]
 
   @@map("user")
 }
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  /// Hash du mot de passe (fournisseur "credential").
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+/// Compteurs anti-brute-force de Better Auth, en base car la mémoire n'est pas
+/// partagée entre les fonctions serverless.
+model RateLimit {
+  id          String @id
+  key         String @unique
+  count       Int
+  lastRequest BigInt
+
+  @@map("rateLimit")
+}
+
+// --- Métier ---
 
 enum OperationSource {
   MANUAL // saisie à la main, pas encore vue sur le compte
