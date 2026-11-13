@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Champs de base attendus par Better Auth. Session, Account et Verification
+// seront ajoutés avec l'authentification.
+model User {
+  id            String   @id
+  name          String
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  image         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  paidOperations Operation[]
+
+  @@map("user")
+}
+
+enum OperationSource {
+  MANUAL // saisie à la main, pas encore vue sur le compte
+  IMPORT // lue dans un relevé LBP
+}
+
+model Operation {
+  id          String          @id @default(cuid())
+  date        DateTime        @db.Date
+  /// En centimes. Négatif = dépense, positif = entrée d'argent.
+  amountCents Int
+  label       String
+  source      OperationSource
+
+  /// Qui a payé. null = les deux.
+  payerId String?
+  payer   User?   @relation(fields: [payerId], references: [id], onDelete: SetNull)
+
+  importId   String?
+  import     Import? @relation(fields: [importId], references: [id], onDelete: Cascade)
+  /// Empreinte de la ligne du relevé, pour ne pas importer deux fois la même opération.
+  importHash String? @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([date])
+  @@index([source])
+}
+
+model Import {
+  id               String   @id @default(cuid())
+  fileName         String
+  importedAt       DateTime @default(now())
+  /// Solde indiqué par la banque dans le relevé, en centimes.
+  bankBalanceCents Int
+  balanceDate      DateTime @db.Date
+
+  operations Operation[]
+
+  @@index([importedAt])
+}
