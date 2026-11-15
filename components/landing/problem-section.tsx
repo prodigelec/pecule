@@ -3,7 +3,7 @@ import { formatEuro } from "@/lib/format";
 
 export function ProblemSection() {
   return (
-    <section className="bg-primary text-on-primary">
+    <section id="pourquoi" className="scroll-mt-16 bg-primary text-on-primary">
       <div className="mx-auto grid w-full max-w-5xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center">
         <div>
           <Hourglass aria-hidden className="size-10 text-accent" />

@@ -27,6 +27,11 @@
   /* Montants */
   --positive: #2b7a4b;
   --negative: #b93c27;
+
+  /* Navbar : vert sapin plein, identique en clair et en sombre */
+  --nav: #1f4d3a;
+  --on-nav: #ffffff;
+  --on-nav-muted: #cfe2d8;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,6 +52,10 @@
 
     --positive: #6cc493;
     --negative: #f08672;
+
+    --nav: #163a2c;
+    --on-nav: #ffffff;
+    --on-nav-muted: #b9d3c6;
   }
 }
 
@@ -63,10 +72,20 @@
   --color-on-accent: var(--on-accent);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
+  --color-nav: var(--nav);
+  --color-on-nav: var(--on-nav);
+  --color-on-nav-muted: var(--on-nav-muted);
 
   /* Inter pour le texte, Manrope pour les titres et les montants */
   --font-sans: var(--font-inter);
   --font-display: var(--font-manrope);
+}
+
+/* Défilement doux vers les ancres, sauf si l'utilisateur limite les animations. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {

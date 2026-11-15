@@ -22,7 +22,7 @@ const steps: Step[] = [
 
 export function HowItWorks() {
   return (
-    <section className="border-y border-border bg-surface">
+    <section id="comment" className="scroll-mt-16 border-y border-border bg-surface">
       <div className="mx-auto w-full max-w-5xl px-6 py-16 md:py-20">
         <h2 className="font-display text-3xl font-bold text-ink">Comment ça marche</h2>
         <ol className="mt-10 grid gap-8 md:grid-cols-3">
