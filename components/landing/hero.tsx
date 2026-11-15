@@ -19,10 +19,10 @@ export function Hero() {
           className="object-cover object-[60%_35%]"
         />
         {/* Voile : uniforme sur mobile/tablette, dégradé vers la gauche à partir de lg. */}
-        <div className="absolute inset-0 bg-nav/80 lg:bg-transparent lg:bg-gradient-to-r lg:from-nav lg:via-nav/25 lg:to-transparent" />
+        <div className="absolute inset-0 bg-nav/80 lg:bg-transparent lg:bg-linear-to-r lg:from-nav lg:via-nav/25 lg:to-transparent" />
       </div>
 
-      <div className="relative mx-auto flex min-h-140 w-full max-w-5xl items-center px-6 py-16 lg:min-h-155">
+      <div className="relative mx-auto flex min-h-140 w-full max-w-7xl items-center px-6 py-16 lg:min-h-155 lg:px-12">
         <div className="max-w-md">
           <h1 className="font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl">
             Votre <span className="text-accent">vrai solde</span>, à tout moment.
