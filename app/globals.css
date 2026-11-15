@@ -69,6 +69,13 @@
   --font-display: var(--font-manrope);
 }
 
+/* Défilement doux vers les ancres, sauf si l'utilisateur limite les animations. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--ink);

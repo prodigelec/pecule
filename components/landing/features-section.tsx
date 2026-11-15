@@ -37,7 +37,7 @@ const features: Feature[] = [
 
 export function FeaturesSection() {
   return (
-    <section className="mx-auto w-full max-w-5xl px-6 py-16 md:py-20">
+    <section id="fonctionnalites" className="mx-auto w-full scroll-mt-16 max-w-5xl px-6 py-16 md:py-20">
       <h2 className="font-display text-3xl font-bold text-ink">Ce que fait Pécule</h2>
       <p className="mt-3 max-w-2xl text-lg text-ink-muted">
         Peu d&apos;écrans, l&apos;essentiel d&apos;abord.
