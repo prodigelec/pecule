@@ -1,4 +1,4 @@
-import { FeaturesSection } from "@/components/landing/features-section";
+import { FeaturesSection } from "@/components/landing/features/features-section";
 import { Hero } from "@/components/landing/hero";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { LandingFooter } from "@/components/landing/landing-footer";
