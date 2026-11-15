@@ -2,13 +2,10 @@ import { FileUp, ShieldCheck, Smartphone, Users, Wallet, Zap } from "lucide-reac
 import { FeatureRow } from "@/components/landing/features/feature-row";
 import { BalancePreview } from "@/components/landing/features/previews/balance-preview";
 import { ImportPreview } from "@/components/landing/features/previews/import-preview";
+import { InstallPreview } from "@/components/landing/features/previews/install-preview";
 import { QuickEntryPreview } from "@/components/landing/features/previews/quick-entry-preview";
+import { SecurityPreview } from "@/components/landing/features/previews/security-preview";
 import { SharedPreview } from "@/components/landing/features/previews/shared-preview";
-
-const extras = [
-  { icon: Smartphone, title: "Toujours dans la poche", text: "Installable sur Android comme une application, en clair ou en sombre." },
-  { icon: ShieldCheck, title: "Accès protégé", text: "Identifiant personnel, et aucune connexion à votre banque n'est demandée." },
-];
 
 export function FeaturesSection() {
   return (
@@ -53,21 +50,24 @@ export function FeaturesSection() {
           points={["Moi, l'autre ou les deux", "Les mêmes chiffres pour tout le monde"]}
           preview={<SharedPreview />}
         />
+        <FeatureRow
+          icon={Smartphone}
+          eyebrow="Sur Android"
+          title="Toujours dans la poche"
+          text="Pécule s'installe sur l'écran d'accueil comme une vraie application, sans passer par le Play Store."
+          points={["Ouverture en plein écran, comme une appli", "Thème clair ou sombre selon le téléphone"]}
+          preview={<InstallPreview />}
+        />
+        <FeatureRow
+          reversed
+          icon={ShieldCheck}
+          eyebrow="Sécurité"
+          title="Accès protégé"
+          text="Vos finances restent privées : chacun son identifiant, et Pécule ne vous demande jamais vos codes bancaires."
+          points={["Mot de passe jamais stocké en clair", "Tentatives de connexion limitées", "Données hébergées en Europe"]}
+          preview={<SecurityPreview />}
+        />
       </ol>
-
-      <ul className="mt-20 grid gap-4 sm:grid-cols-2 md:mt-28">
-        {extras.map(({ icon: Icon, title, text }) => (
-          <li key={title} className="flex gap-4 rounded-2xl border border-border bg-surface p-5">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <Icon aria-hidden className="size-6" />
-            </span>
-            <div>
-              <h3 className="font-display font-bold text-ink">{title}</h3>
-              <p className="mt-1 text-sm text-ink-muted">{text}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }
