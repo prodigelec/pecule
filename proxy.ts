@@ -5,18 +5,21 @@ import { getSessionCookie } from "better-auth/cookies";
 // La vraie vérification de session se fait dans les pages via requireSession().
 export function proxy(request: NextRequest) {
   const hasSession = Boolean(getSessionCookie(request));
-  const isLoginPage = request.nextUrl.pathname === "/connexion";
+  const { pathname } = request.nextUrl;
+  const isAppRoute = pathname === "/app" || pathname.startsWith("/app/");
 
-  if (!hasSession && !isLoginPage) {
+  if (!hasSession && isAppRoute) {
     return NextResponse.redirect(new URL("/connexion", request.url));
   }
-  if (hasSession && isLoginPage) {
-    return NextResponse.redirect(new URL("/", request.url));
+  // Déjà connecté : la vitrine mène directement à l'app. On ne fait PAS de même
+  // pour /connexion : avec un cookie expiré, /app renverrait vers /connexion qui
+  // renverrait vers /app, en boucle.
+  if (hasSession && pathname === "/") {
+    return NextResponse.redirect(new URL("/app", request.url));
   }
   return NextResponse.next();
 }
 
 export const config = {
-  // Tout sauf l'API d'auth, les fichiers internes de Next et les fichiers statiques.
-  matcher: ["/((?!api/auth|_next/static|_next/image|favicon.ico|.*\..*).*)"],
+  matcher: ["/", "/connexion", "/app/:path*"],
 };
