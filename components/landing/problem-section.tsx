@@ -1,4 +1,3 @@
-import { Hourglass } from "lucide-react";
 import { formatEuro } from "@/lib/format";
 
 export function ProblemSection() {
@@ -6,8 +5,14 @@ export function ProblemSection() {
     <section id="pourquoi" className="scroll-mt-16 bg-primary text-on-primary">
       <div className="mx-auto grid w-full max-w-5xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center">
         <div>
-          <Hourglass aria-hidden className="size-10 text-accent" />
-          <h2 className="mt-4 font-display text-3xl font-bold">Pourquoi Pécule ?</h2>
+          {/* Résumé visuel du problème : le paiement n'apparaît que quelques jours après. */}
+          <span
+            aria-hidden
+            className="inline-block -rotate-3 rounded-2xl bg-accent px-4 py-1.5 font-display text-3xl font-extrabold tracking-tight text-on-accent shadow-lg shadow-black/20"
+          >
+            J+3
+          </span>
+          <h2 className="mt-5 font-display text-3xl font-bold">Pourquoi Pécule ?</h2>
           <p className="mt-4 text-lg opacity-90">
             Chez La Banque Postale, un paiement par carte peut mettre plusieurs
             jours à apparaître sur le compte. Pendant ce temps, le solde affiché
