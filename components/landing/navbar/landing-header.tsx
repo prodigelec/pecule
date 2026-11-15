@@ -24,17 +24,15 @@ export function LandingHeader() {
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
-  const elevated = scrolled || menuOpen;
-
   return (
     <header
-      className={`sticky top-0 z-50 w-full border-b backdrop-blur-md transition-colors duration-200 ${
-        elevated ? "border-border bg-background/85" : "border-transparent bg-background/0"
+      className={`sticky top-0 z-50 w-full bg-nav text-on-nav transition-shadow duration-200 ${
+        scrolled || menuOpen ? "shadow-lg shadow-black/15" : ""
       }`}
     >
       <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-6">
         <Link href="/" aria-label="Pécule, accueil" onClick={() => setMenuOpen(false)}>
-          <Logo size={32} />
+          <Logo size={32} variant="inverse" />
         </Link>
 
         <nav aria-label="Navigation principale" className="hidden items-center gap-1 md:flex">
@@ -43,7 +41,7 @@ export function LandingHeader() {
               key={link.id}
               href={`#${link.id}`}
               aria-current={active === link.id ? "true" : undefined}
-              className="rounded-full px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink aria-[current]:bg-primary/10 aria-[current]:text-primary"
+              className="rounded-full px-4 py-2 text-sm font-medium text-on-nav-muted transition-colors hover:text-on-nav aria-[current]:bg-on-nav/15 aria-[current]:text-on-nav"
             >
               {link.label}
             </a>
@@ -63,7 +61,7 @@ export function LandingHeader() {
             aria-expanded={menuOpen}
             aria-controls="menu-mobile"
             aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-            className="rounded-full p-2 text-ink hover:bg-surface md:hidden"
+            className="rounded-full p-2 text-on-nav hover:bg-on-nav/10 md:hidden"
           >
             {menuOpen ? <X aria-hidden className="size-6" /> : <Menu aria-hidden className="size-6" />}
           </button>

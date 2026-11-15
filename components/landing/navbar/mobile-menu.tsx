@@ -9,7 +9,7 @@ type MobileMenuProps = {
 
 export function MobileMenu({ id, active, onNavigate }: MobileMenuProps) {
   return (
-    <div id={id} className="border-t border-border bg-background md:hidden">
+    <div id={id} className="border-t border-on-nav/15 bg-nav md:hidden">
       <nav aria-label="Navigation principale" className="mx-auto flex max-w-5xl flex-col gap-1 px-6 py-4">
         {navLinks.map((link) => (
           <a
@@ -17,7 +17,7 @@ export function MobileMenu({ id, active, onNavigate }: MobileMenuProps) {
             href={`#${link.id}`}
             onClick={onNavigate}
             aria-current={active === link.id ? "true" : undefined}
-            className="rounded-xl px-3 py-3 font-medium text-ink hover:bg-surface aria-[current]:text-primary"
+            className="rounded-xl px-3 py-3 font-medium text-on-nav-muted hover:bg-on-nav/10 hover:text-on-nav aria-[current]:bg-on-nav/15 aria-[current]:text-on-nav"
           >
             {link.label}
           </a>

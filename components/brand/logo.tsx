@@ -1,26 +1,31 @@
+type Variant = "default" | "inverse";
+
 type LogoProps = {
   /** Taille de l'icône en pixels. */
   size?: number;
   /** Affiche « Pécule » à côté de l'icône. */
   withWordmark?: boolean;
+  /** `inverse` : pour un fond vert sapin (carré blanc, texte blanc). */
+  variant?: Variant;
   className?: string;
 };
 
-/** Icône Pécule : P en anneau avec le point orange. Couleurs fixes (identité de marque). */
-export function LogoMark({ size = 32 }: { size?: number }) {
+// Couleurs fixes : identité de marque, indépendante du thème clair/sombre.
+const markColors: Record<Variant, { tile: string; stroke: string }> = {
+  default: { tile: "#1f4d3a", stroke: "#ffffff" },
+  inverse: { tile: "#ffffff", stroke: "#1f4d3a" },
+};
+
+/** Icône Pécule : P en anneau avec le point orange. */
+export function LogoMark({ size = 32, variant = "default" }: { size?: number; variant?: Variant }) {
+  const { tile, stroke } = markColors[variant];
   return (
-    <svg
-      viewBox="0 0 512 512"
-      width={size}
-      height={size}
-      aria-hidden
-      className="shrink-0"
-    >
-      <rect width="512" height="512" rx="116" fill="#1f4d3a" />
+    <svg viewBox="0 0 512 512" width={size} height={size} aria-hidden className="shrink-0">
+      <rect width="512" height="512" rx="116" fill={tile} />
       <path
         d="M164 396 V208 A92 92 0 1 1 256 300 H224"
         fill="none"
-        stroke="#ffffff"
+        stroke={stroke}
         strokeWidth="60"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -30,13 +35,15 @@ export function LogoMark({ size = 32 }: { size?: number }) {
   );
 }
 
-export function Logo({ size = 32, withWordmark = true, className = "" }: LogoProps) {
+export function Logo({ size = 32, withWordmark = true, variant = "default", className = "" }: LogoProps) {
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <LogoMark size={size} />
+      <LogoMark size={size} variant={variant} />
       {withWordmark ? (
         <span
-          className="font-display font-extrabold tracking-tight text-primary"
+          className={`font-display font-extrabold tracking-tight ${
+            variant === "inverse" ? "text-on-nav" : "text-primary"
+          }`}
           style={{ fontSize: size * 0.75 }}
         >
           Pécule
