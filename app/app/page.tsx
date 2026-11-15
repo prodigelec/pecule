@@ -1,13 +1,14 @@
 import { Suspense } from "react";
+import { Logo } from "@/components/brand/logo";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Greeting } from "@/components/home/greeting";
 
 export default function AppHome() {
   return (
     <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center gap-6 p-6">
-      <header className="flex items-baseline justify-between">
-        <h1 className="font-display text-3xl font-extrabold tracking-tight text-primary">
-          Pécule
+      <header className="flex items-center justify-between">
+        <h1>
+          <Logo size={36} />
         </h1>
         <SignOutButton />
       </header>
