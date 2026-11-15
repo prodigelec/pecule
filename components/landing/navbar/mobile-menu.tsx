@@ -14,7 +14,7 @@ export function MobileMenu({ id, active, onNavigate }: MobileMenuProps) {
         {navLinks.map((link) => (
           <a
             key={link.id}
-            href={`#${link.id}`}
+            href={`/#${link.id}`}
             onClick={onNavigate}
             aria-current={active === link.id ? "true" : undefined}
             className="rounded-xl px-3 py-3 font-medium text-on-nav-muted hover:bg-on-nav/10 hover:text-on-nav aria-[current]:bg-on-nav/15 aria-[current]:text-on-nav"

@@ -39,7 +39,7 @@ export function LandingHeader() {
           {navLinks.map((link) => (
             <a
               key={link.id}
-              href={`#${link.id}`}
+              href={`/#${link.id}`}
               aria-current={active === link.id ? "true" : undefined}
               className="rounded-full px-4 py-2 text-sm font-medium text-on-nav-muted transition-colors hover:text-on-nav aria-[current]:bg-on-nav/15 aria-[current]:text-on-nav"
             >
