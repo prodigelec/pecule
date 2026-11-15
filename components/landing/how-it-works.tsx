@@ -22,20 +22,27 @@ const steps: Step[] = [
 
 export function HowItWorks() {
   return (
-    <section id="comment" className="scroll-mt-16 border-y border-border bg-surface">
-      <div className="mx-auto w-full max-w-5xl px-6 py-16 md:py-20">
-        <h2 className="font-display text-3xl font-bold text-ink">Comment ça marche</h2>
-        <ol className="mt-10 grid gap-8 md:grid-cols-3">
+    <section id="comment" className="scroll-mt-16 bg-nav text-on-nav">
+      <div className="mx-auto w-full max-w-5xl px-6 py-16 md:py-24">
+        <h2 className="font-display text-3xl font-bold md:text-4xl">Comment ça marche</h2>
+        <p className="mt-3 text-lg text-on-nav-muted">Trois gestes, et le solde est juste.</p>
+
+        <ol className="relative mt-12 grid gap-8 md:mt-16 md:grid-cols-3 md:gap-6">
+          {/* Ligne pointillée qui relie les étapes : verticale sur mobile, horizontale ensuite. */}
+          <span aria-hidden className="absolute inset-y-7 left-7 border-l-2 border-dashed border-on-nav/30 md:hidden" />
+          <span aria-hidden className="absolute inset-x-[16.66%] top-7 hidden border-t-2 border-dashed border-on-nav/30 md:block" />
+
           {steps.map(({ icon: Icon, title, text }, index) => (
-            <li key={title}>
-              <div className="flex items-center gap-3">
-                <span className="font-display text-4xl font-extrabold text-accent">
-                  {index + 1}
-                </span>
-                <Icon aria-hidden className="size-6 text-primary" />
+            <li key={title} className="relative flex gap-5 md:flex-col md:items-center md:gap-6">
+              {/* L'anneau couleur du fond masque la ligne derrière la pastille. */}
+              <span className="relative z-10 flex size-14 shrink-0 items-center justify-center rounded-full bg-accent font-display text-xl font-extrabold text-on-accent ring-8 ring-nav">
+                {index + 1}
+              </span>
+              <div className="flex-1 rounded-2xl border border-on-nav/10 bg-on-nav/5 p-6 md:w-full">
+                <Icon aria-hidden className="size-6 text-accent" />
+                <h3 className="mt-3 font-display text-lg font-bold">{title}</h3>
+                <p className="mt-2 text-on-nav-muted">{text}</p>
               </div>
-              <h3 className="mt-3 font-display text-lg font-bold text-ink">{title}</h3>
-              <p className="mt-2 text-ink-muted">{text}</p>
             </li>
           ))}
         </ol>
