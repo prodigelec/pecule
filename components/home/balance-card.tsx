@@ -28,7 +28,9 @@ export async function BalanceCard() {
   return (
     <Link href="/app/compte" className="block rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-primary">
       <p className="text-sm text-ink-muted">Disponible réellement</p>
-      <p className="mt-1 font-display text-4xl font-bold text-ink">{formatEuro(account.openingBalanceCents)}</p>
+      <p className={`mt-1 font-display text-4xl font-bold ${account.openingBalanceCents < 0 ? "text-negative" : "text-ink"}`}>
+        {formatEuro(account.openingBalanceCents)}
+      </p>
       <div className="mt-4 flex items-center gap-3">
         <BankLogo bankId={account.bankId} size={32} />
         <p className="text-sm text-ink-muted">

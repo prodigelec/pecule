@@ -25,15 +25,16 @@ export function AccountSummary({ account }: AccountSummaryProps) {
         </div>
       </div>
       <dl className="divide-y divide-border">
-        {[
-          ["Solde de départ", formatEuro(account.openingBalanceCents)],
-          ["Au", formatDate(account.openingBalanceDate)],
-        ].map(([label, value]) => (
-          <div key={label} className="flex justify-between gap-4 px-5 py-3.5">
-            <dt className="text-ink-muted">{label}</dt>
-            <dd className="text-right font-medium text-ink">{value}</dd>
-          </div>
-        ))}
+        <div className="flex justify-between gap-4 px-5 py-3.5">
+          <dt className="text-ink-muted">Solde de départ</dt>
+          <dd className={`text-right font-medium ${account.openingBalanceCents < 0 ? "text-negative" : "text-ink"}`}>
+            {formatEuro(account.openingBalanceCents)}
+          </dd>
+        </div>
+        <div className="flex justify-between gap-4 px-5 py-3.5">
+          <dt className="text-ink-muted">Au</dt>
+          <dd className="text-right font-medium text-ink">{formatDate(account.openingBalanceDate)}</dd>
+        </div>
       </dl>
     </div>
   );

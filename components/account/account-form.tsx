@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { createAccount, type AccountFormState } from "@/app/app/compte/actions";
+import { BalanceField } from "@/components/account/balance-field";
 import { BankPicker } from "@/components/account/bank-picker";
 import { FormField } from "@/components/ui/form-field";
 import { createAccountSchema, type AccountField } from "@/lib/validations/account";
@@ -52,15 +53,7 @@ export function AccountForm({ today }: { today: string }) {
         hint="Seulement les 4 derniers caractères : le numéro complet n'est jamais enregistré."
         error={errors.accountLast4}
       />
-      <FormField
-        label="Solde affiché par la banque"
-        name="openingBalance"
-        inputMode="decimal"
-        placeholder="1 482,30"
-        autoComplete="off"
-        hint="Le solde que vous voyez aujourd'hui sur l'appli ou le site de votre banque."
-        error={errors.openingBalance}
-      />
+      <BalanceField amountError={errors.openingBalance} signError={errors.balanceSign} />
       <FormField
         label="À la date du"
         name="openingBalanceDate"

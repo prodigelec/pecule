@@ -28,6 +28,8 @@ export const createAccountSchema = z
       }
       return cents;
     }),
+    /** Signe choisi à part : le clavier numérique du téléphone n'a souvent pas de « - ». */
+    balanceSign: z.enum(["positive", "negative"], "Choisissez positif ou négatif"),
 
     openingBalanceDate: z
       .string()
@@ -42,10 +44,12 @@ export const createAccountSchema = z
       ctx.addIssue({ code: "custom", path: ["customBankName"], message: "Indiquez le nom de la banque" });
     }
   })
-  // Nom affiché : celui de la liste, ou le nom saisi pour « Autre banque ».
-  .transform(({ customBankName, ...data }) => ({
+  .transform(({ customBankName, balanceSign, openingBalance, ...data }) => ({
     ...data,
+    // Nom affiché : celui de la liste, ou le nom saisi pour « Autre banque ».
     bankName: findBank(data.bankId)?.name ?? customBankName ?? "",
+    // Le signe vient du sélecteur ; un « - » tapé dans le montant est ignoré.
+    openingBalance: balanceSign === "negative" ? -Math.abs(openingBalance) : Math.abs(openingBalance),
   }));
 
 export type CreateAccountInput = z.infer<typeof createAccountSchema>;

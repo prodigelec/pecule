@@ -24,6 +24,7 @@ export async function createAccount(
     customBankName: formData.get("customBankName") ?? undefined,
     accountLast4: formData.get("accountLast4") ?? "",
     openingBalance: formData.get("openingBalance") ?? "",
+    balanceSign: formData.get("balanceSign") ?? "",
     openingBalanceDate: formData.get("openingBalanceDate") ?? "",
   });
   if (!parsed.success) {
