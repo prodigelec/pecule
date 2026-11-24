@@ -9,6 +9,14 @@ import { FormField } from "@/components/auth/form-field";
 
 type FieldErrors = Partial<Record<"email" | "password", string>>;
 
+/** Message selon le code HTTP : ne pas accuser le mot de passe pour une erreur serveur. */
+function signInErrorMessage(status: number) {
+  if (status === 401) return "Email ou mot de passe incorrect.";
+  if (status === 429) return "Trop de tentatives, réessayez dans une minute.";
+  if (status === 403) return "Connexion refusée par le serveur (origine non autorisée).";
+  return "Le serveur ne répond pas correctement, réessayez plus tard.";
+}
+
 export function LoginForm() {
   const router = useRouter();
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -37,11 +45,7 @@ export function LoginForm() {
     setPending(false);
 
     if (error) {
-      toast.error(
-        error.status === 429
-          ? "Trop de tentatives, réessayez dans une minute."
-          : "Email ou mot de passe incorrect.",
-      );
+      toast.error(signInErrorMessage(error.status));
       return;
     }
 

@@ -16,6 +16,10 @@ export const auth = betterAuth({
     expiresIn: 60 * 60 * 24 * 30, // 30 jours : on reste connecté sur le téléphone
     updateAge: 60 * 60 * 24,
   },
+  // En local, le serveur de dev peut tourner sur 3000, 3001, 3002… selon les
+  // autres projets lancés : on accepte tous les ports de localhost. En
+  // production, seule l'URL de BETTER_AUTH_URL est acceptée.
+  trustedOrigins: process.env.NODE_ENV === "development" ? ["http://localhost:*"] : [],
   rateLimit: {
     storage: "database",
     customRules: {
