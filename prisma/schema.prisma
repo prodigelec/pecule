@@ -86,11 +86,14 @@ model RateLimit {
 
 // --- Métier ---
 
-/// Le compte joint suivi. Un seul compte pour l'instant (cahier des charges).
+/// Le compte suivi. Un seul compte pour l'instant (cahier des charges).
 model BankAccount {
   id       String @id @default(cuid())
   name     String
-  bankName String @default("La Banque Postale")
+  /// Identifiant de lib/banks.ts (logo dans public/banks), ou "autre".
+  bankId   String
+  /// Nom affiché : celui de la liste, ou le nom saisi pour "autre".
+  bankName String
   /// 4 derniers caractères du numéro de compte, jamais le numéro complet.
   /// Sert à reconnaître le compte et à vérifier les relevés importés.
   accountLast4 String

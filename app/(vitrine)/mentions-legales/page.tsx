@@ -47,6 +47,10 @@ export default function MentionsLegalesPage() {
           <a href="https://unsplash.com/photos/N0KIyPiAkkY">Unsplash</a> (licence
           Unsplash).
         </p>
+        <p>
+          Les logos des banques sont des marques déposées de leurs propriétaires,
+          affichés uniquement pour identifier la banque de l&apos;utilisateur.
+        </p>
       </LegalSection>
     </LegalPage>
   );

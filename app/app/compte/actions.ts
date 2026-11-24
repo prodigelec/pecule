@@ -20,6 +20,8 @@ export async function createAccount(
   // Validation serveur : on ne fait jamais confiance au formulaire seul.
   const parsed = createAccountSchema.safeParse({
     name: formData.get("name") ?? "",
+    bankId: formData.get("bankId") ?? "",
+    customBankName: formData.get("customBankName") ?? undefined,
     accountLast4: formData.get("accountLast4") ?? "",
     openingBalance: formData.get("openingBalance") ?? "",
     openingBalanceDate: formData.get("openingBalanceDate") ?? "",
@@ -42,6 +44,8 @@ export async function createAccount(
     await prisma.bankAccount.create({
       data: {
         name: parsed.data.name,
+        bankId: parsed.data.bankId,
+        bankName: parsed.data.bankName,
         accountLast4: parsed.data.accountLast4,
         openingBalanceCents: parsed.data.openingBalance,
         openingBalanceDate: parsed.data.openingBalanceDate,

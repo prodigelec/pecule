@@ -16,7 +16,7 @@ export async function AccountPanel() {
   return (
     <div className="flex flex-col gap-6">
       <p className="text-ink-muted">
-        Indiquez le compte joint à suivre. Le solde de départ sert de base au calcul
+        Indiquez le compte à suivre. Le solde de départ sert de base au calcul
         jusqu&apos;au premier import de relevé.
       </p>
       <AccountForm today={todayInParis()} />

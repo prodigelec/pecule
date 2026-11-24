@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { createAccount, type AccountFormState } from "@/app/app/compte/actions";
+import { BankPicker } from "@/components/account/bank-picker";
 import { FormField } from "@/components/ui/form-field";
 import { createAccountSchema, type AccountField } from "@/lib/validations/account";
 
@@ -39,7 +40,8 @@ export function AccountForm({ today }: { today: string }) {
 
   return (
     <form action={formAction} onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
-      <FormField label="Nom du compte" name="name" defaultValue="Compte joint" maxLength={50} error={errors.name} />
+      <BankPicker error={errors.bankId} customNameError={errors.customBankName} />
+      <FormField label="Nom du compte" name="name" defaultValue="Compte courant" maxLength={50} error={errors.name} />
       <FormField
         label="Numéro de compte"
         name="accountLast4"
@@ -56,7 +58,7 @@ export function AccountForm({ today }: { today: string }) {
         inputMode="decimal"
         placeholder="1 482,30"
         autoComplete="off"
-        hint="Le solde que vous voyez aujourd'hui sur l'appli ou le site de La Banque Postale."
+        hint="Le solde que vous voyez aujourd'hui sur l'appli ou le site de votre banque."
         error={errors.openingBalance}
       />
       <FormField

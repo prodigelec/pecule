@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { BankLogo } from "@/components/account/bank-logo";
 import { getAccount } from "@/lib/data/account";
 import { formatDate, formatEuro } from "@/lib/format";
 
@@ -11,7 +12,7 @@ export async function BalanceCard() {
     return (
       <section className="rounded-2xl border border-dashed border-primary/40 bg-primary/5 p-5">
         <p className="font-display text-lg font-bold text-ink">Ajoutez votre compte pour commencer</p>
-        <p className="mt-1 text-sm text-ink-muted">Le compte joint et son solde actuel : c&apos;est le point de départ du calcul.</p>
+        <p className="mt-1 text-sm text-ink-muted">Votre banque et son solde actuel : c&apos;est le point de départ du calcul.</p>
         <Link
           href="/app/compte"
           className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary"
@@ -28,9 +29,12 @@ export async function BalanceCard() {
     <Link href="/app/compte" className="block rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-primary">
       <p className="text-sm text-ink-muted">Disponible réellement</p>
       <p className="mt-1 font-display text-4xl font-bold text-ink">{formatEuro(account.openingBalanceCents)}</p>
-      <p className="mt-3 text-sm text-ink-muted">
-        {account.name} •••• {account.accountLast4} · solde banque au {formatDate(account.openingBalanceDate)}
-      </p>
+      <div className="mt-4 flex items-center gap-3">
+        <BankLogo bankId={account.bankId} size={32} />
+        <p className="text-sm text-ink-muted">
+          {account.name} •••• {account.accountLast4} · solde banque au {formatDate(account.openingBalanceDate)}
+        </p>
+      </div>
     </Link>
   );
 }
