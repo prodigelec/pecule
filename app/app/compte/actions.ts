@@ -52,7 +52,9 @@ export async function createAccount(
         openingBalanceDate: parsed.data.openingBalanceDate,
       },
     });
-  } catch {
+  } catch (error) {
+    // Message générique pour l'utilisateur, détail dans le terminal du serveur.
+    console.error("[createAccount] échec de l'enregistrement :", error);
     return { status: "error", message: "Le compte n'a pas pu être enregistré, réessayez." };
   }
 
