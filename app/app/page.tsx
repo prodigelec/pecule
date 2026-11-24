@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Logo } from "@/components/brand/logo";
 import { SignOutButton } from "@/components/auth/sign-out-button";
+import { BalanceCard } from "@/components/home/balance-card";
 import { Greeting } from "@/components/home/greeting";
 
 export default function AppHome() {
@@ -15,12 +16,9 @@ export default function AppHome() {
       <Suspense fallback={<p className="text-ink-muted">&nbsp;</p>}>
         <Greeting />
       </Suspense>
-      <section className="rounded-2xl border border-border bg-surface p-5">
-        <p className="text-sm text-ink-muted">Disponible réellement</p>
-        <p className="mt-1 font-display text-4xl font-bold text-ink">
-          0,00&nbsp;€
-        </p>
-      </section>
+      <Suspense fallback={<div className="h-36 animate-pulse rounded-2xl bg-surface" />}>
+        <BalanceCard />
+      </Suspense>
       <button
         type="button"
         className="rounded-full bg-accent px-5 py-3 font-semibold text-on-accent"

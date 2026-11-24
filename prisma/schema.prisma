@@ -86,6 +86,27 @@ model RateLimit {
 
 // --- Métier ---
 
+/// Le compte joint suivi. Un seul compte pour l'instant (cahier des charges).
+model BankAccount {
+  id       String @id @default(cuid())
+  name     String
+  bankName String @default("La Banque Postale")
+  /// 4 derniers caractères du numéro de compte, jamais le numéro complet.
+  /// Sert à reconnaître le compte et à vérifier les relevés importés.
+  accountLast4 String
+
+  /// Solde affiché par la banque à la création, en centimes : point de départ
+  /// du calcul tant qu'aucun relevé n'a été importé.
+  openingBalanceCents Int
+  openingBalanceDate  DateTime @db.Date
+
+  operations Operation[]
+  imports    Import[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum OperationSource {
   MANUAL // saisie à la main, pas encore vue sur le compte
   IMPORT // lue dans un relevé LBP
@@ -99,6 +120,9 @@ model Operation {
   label       String
   source      OperationSource
 
+  accountId String
+  account   BankAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
   /// Qui a payé. null = les deux.
   payerId String?
   payer   User?   @relation(fields: [payerId], references: [id], onDelete: SetNull)
@@ -111,7 +135,7 @@ model Operation {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([date])
+  @@index([accountId, date])
   @@index([source])
 }
 
@@ -123,7 +147,10 @@ model Import {
   bankBalanceCents Int
   balanceDate      DateTime @db.Date
 
+  accountId String
+  account   BankAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
   operations Operation[]
 
-  @@index([importedAt])
+  @@index([accountId, importedAt])
 }

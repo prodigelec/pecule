@@ -5,7 +5,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { signInSchema } from "@/lib/validations/auth";
-import { FormField } from "@/components/auth/form-field";
+import { FormField } from "@/components/ui/form-field";
 
 type FieldErrors = Partial<Record<"email" | "password", string>>;
 
